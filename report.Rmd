@@ -10,6 +10,7 @@
 This algorithm try to compute the probability that a person who survived has the records that are given, against the probability that a person who didnt survived as those records, by referring to each record as independent from the others and choosing by the higher probability.
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/prediction1.R)
+
 [link to the output](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/try1.csv)
 
 # Try n.2
