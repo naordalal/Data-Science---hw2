@@ -116,7 +116,7 @@ new_pred<- predict(nb_model,df_test)
 We took 4 algorithms: RPART, C50, XGB, GBM.
 We run the algorithms on the data, and decide that people survived only if 2 of the algorithm return 1.
 
-# pre-processing
+## pre-processing
 we read the the train.csv and test.csv files into df and df_test respectively.
 
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
