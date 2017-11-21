@@ -1,36 +1,36 @@
 
-#Data Science ex2
+# Data Science ex2
 
-##Our best score:
+## Our best score:
 
 (/bestRecord.png)
 
-#Try n.1
+# Try n.1
 ##naive bayes algorithm
 This algorithm try to compute the probability that a person who survived has the records that are given, against the probability that a person who didnt survived as those records, by referring to each record as independent from the others and choosing by the higher probability.
 
-#Try n.2
+# Try n.2
 ##C50 algorithm
 Decision trees and rule-based models for pattern recognition.
 
-##plot
+## plot
 (/Prediction2/C50Plot.png)
 
-#Try n.3
+# Try n.3
 ##our score in this try:
 (/Prediction3/try3.png)
 
-##Our algorithm
+## Our algorithm
 We took 4 algorithms: RPART, C50, XGB, GBM.
 We run the algorithms on the data, and decide that people survived only if 2 of the algorithm return 1.
 
-##C50 plot
+## C50 plot
 (/Prediction3/C50Plot.png)
 
-##JBM plot
+## JBM plot
 (/Prediction3/gbmPlot.png)
 
-##XJB plot
+## XJB plot
 (/Prediction3/xgbPlot.png)
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/try3.csv)
