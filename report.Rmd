@@ -6,18 +6,18 @@
 (/bestRecord.png)
 
 # Try n.1
-##naive bayes algorithm
+## naive bayes algorithm
 This algorithm try to compute the probability that a person who survived has the records that are given, against the probability that a person who didnt survived as those records, by referring to each record as independent from the others and choosing by the higher probability.
 
 # Try n.2
-##C50 algorithm
+## C50 algorithm
 Decision trees and rule-based models for pattern recognition.
 
 ## plot
 (/Prediction2/C50Plot.png)
 
 # Try n.3
-##our score in this try:
+## our score in this try:
 (/Prediction3/try3.png)
 
 ## Our algorithm
