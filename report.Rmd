@@ -21,6 +21,7 @@ Decision trees and rule-based models for pattern recognition.
 ![](/Prediction2/C50Plot.png)
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/prediction2.R)
+
 [link to the output](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/try2.csv)
 
 # Try n.3
@@ -41,4 +42,5 @@ We run the algorithms on the data, and decide that people survived only if 2 of 
 ![](/Prediction3/xgbPlot.png)
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/prediction3.R)
+
 [link to the output](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/try3.csv)
