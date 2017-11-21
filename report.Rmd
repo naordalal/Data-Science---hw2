@@ -9,14 +9,13 @@
 ## naive bayes algorithm
 This algorithm try to compute the probability that a person who survived has the records that are given, against the probability that a person who didnt survived as those records, by referring to each record as independent from the others and choosing by the higher probability.
 
-# pre-processing
+## pre-processing
 we read the the train.csv file into df.
 
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
 
 ```{r}
 df <-read.csv('Titanic/train.csv',na.strings = "")
-df_test <-read.csv('Titanic/test.csv',na.strings = "")
 
 df$Pclass<- as.factor(df$Pclass)
 df$Survived<- as.factor(df$Survived)
@@ -30,7 +29,7 @@ indices <- sample(1:nrow(df),nrow(df)*0.8)
 train<- df[indices,]
 test<- df[-indices,]
 ```
-### running the naive bayse alogirthm on Survived field
+### running the naive bayes alogirthm on Survived field
 
 ```{r}
 seed=123
@@ -53,7 +52,7 @@ nb_model$xlevels[["Cabin"]] <- union(nb_model$xlevels[["Cabin"]], levels(df_test
 ### predict the test
 
 ```{r}
-new_pred<- predict(nb_model,df_test)
+pred_c50 = predict(fit.c50 , df_test , na.action = na.pass)
 ```
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction1/prediction1.R)
@@ -64,18 +63,42 @@ new_pred<- predict(nb_model,df_test)
 ## C50 algorithm
 Decision trees and rule-based models for pattern recognition.
 
-# pre-processing
-we read the the train.csv and test.csv files into df and df_test respectively.
+## pre-processing
+we read the the train.csv file into df.
 
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
 
 ```{r}
 df <-read.csv('Titanic/train.csv',na.strings = "")
-df_test <-read.csv('Titanic/test.csv',na.strings = "")
 
 df$Pclass<- as.factor(df$Pclass)
 df$Survived<- as.factor(df$Survived)
 df<- df[,-c(1,4,9)]
+```
+
+### create trainControl and train with C5.0 method
+
+```{r}
+library(caret)
+set.seed(123)
+control <- trainControl(method="cv", number=5)
+fit.c50 <- train(Survived~., data=df, method="C5.0", metric="Accuracy", trControl=control,na.action = na.pass)
+```
+
+### read the text.csv file int df_test and convert the fields Pclass and survived to factor and remove unnecessary fields and union cabin fields and gets the PassengersId
+
+```{r}
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
+ids<- df_test$PassengerId
+df_test$Pclass<- as.factor(df_test$Pclass)
+df_test<- df_test[,-c(1,3,8)]
+nb_model$xlevels[["Cabin"]] <- union(nb_model$xlevels[["Cabin"]], levels(df_test$Cabin))
+```
+
+### predict the test
+
+```{r}
+new_pred<- predict(nb_model,df_test)
 ```
 
 ## plot
@@ -113,6 +136,53 @@ xgbGrid <- expand.grid(.nrounds=20,.max_depth=6,.eta=c(0.1,0.3,0.5),.gamma=0.1,.
 rpartGrid <- expand.grid(.cp = 0.001)
 c50Grid <- expand.grid(.winnow = c(TRUE,FALSE) , .trials = 5 , .model = 'tree')
 ```
+
+### create trainControl and train with each method
+
+```{r}
+control <- trainControl(method = "cv" , number = 5)
+
+fit.gbm <- train(Survived~., data=df, method="gbm", metric=metric, trControl=control,tuneGrid =gbmGrid , na.action = na.pass)
+
+fit.xgb <- train(Survived~., data=df, method="xgbTree", metric=metric, trControl=control,tuneGrid =xgbGrid , na.action = na.pass)
+
+fit.rpart <- train(Survived~., data=df, method="rpart", metric=metric, trControl=control,tuneGrid =rpartGrid , na.action = na.pass)
+
+fit.c50 <- train(Survived~., data=df, method="C5.0", metric=metric, trControl=control,tuneGrid =c50Grid , na.action = na.pass)
+
+```
+
+### read the text.csv file int df_test and convert the fields Pclass and survived to factor and remove unnecessary fields and union cabin fields and gets the PassengersId
+
+```{r}
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
+ids<- df_test$PassengerId
+df_test$Pclass<- as.factor(df_test$Pclass)
+df_test<- df_test[,-c(1,3,8)]
+
+fit.gbm$xlevels[["Cabin"]] <- union(fit.gbm$xlevels[["Cabin"]], levels(df_test$Cabin))
+fit.xgb$xlevels[["Cabin"]] <- union(fit.xgb$xlevels[["Cabin"]], levels(df_test$Cabin))
+fit.rpart$xlevels[["Cabin"]] <- union(fit.rpart$xlevels[["Cabin"]], levels(df_test$Cabin))
+fit.c50$xlevels[["Cabin"]] <- union(fit.c50$xlevels[["Cabin"]], levels(df_test$Cabin))
+```
+
+### predict the test with each algorithm
+
+```{r}
+pred_gbm = predict(fit.gbm , df_test , na.action = na.pass)
+pred_xgb = predict(fit.xgb , df_test , na.action = na.pass)
+pred_rpart = predict(fit.rpart , df_test , na.action = na.pass)
+pred_c50 = predict(fit.c50 , df_test , na.action = na.pass)
+```
+
+### each passenger that tagged as survivor in at least two algorithm will tagged as survivor
+
+```{r}
+df_test$pred <- mapply(function(x , y , z , t) as.numeric(as.character(x)) + as.numeric(as.character(y)) + as.numeric(as.character(z)) +  as.numeric(as.character(t)), pred_gbm , pred_xgb , pred_rpart , pred_c50)
+
+df_test$pred <- mapply(function(x) if(x >= 2) as.factor(1) else as.factor(0), df_test$pred)
+```
+
 
 
 ## C50 plot
