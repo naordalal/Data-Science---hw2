@@ -1,7 +1,6 @@
 setwd('/Users/naordalal/Desktop/אוניברסיטה/שנה ד - סמסטר א/יישום שיטות לניתוח נתונים/hw2')
 
 df <-read.csv('Titanic/train.csv',na.strings = "")
-df_test <-read.csv('Titanic/test.csv',na.strings = "")
 
 df$Pclass<- as.factor(df$Pclass)
 df$Survived<- as.factor(df$Survived)
@@ -30,7 +29,7 @@ fit.rpart <- train(Survived~., data=df, method="rpart", metric=metric, trControl
 
 fit.c50 <- train(Survived~., data=df, method="C5.0", metric=metric, trControl=control,tuneGrid =c50Grid , na.action = na.pass)
 
-
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
 ids<- df_test$PassengerId
 df_test$Pclass<- as.factor(df_test$Pclass)
 df_test<- df_test[,-c(1,3,8)]
