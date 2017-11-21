@@ -188,10 +188,10 @@ df_test$pred <- mapply(function(x) if(x >= 2) as.factor(1) else as.factor(0), df
 ## C50 plot
 ![](/Prediction3/C50Plot.png)
 
-## JBM plot
+## GBM plot
 ![](/Prediction3/gbmPlot.png)
 
-## XJB plot
+## XGB plot
 ![](/Prediction3/xgbPlot.png)
 
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction3/prediction3.R)
