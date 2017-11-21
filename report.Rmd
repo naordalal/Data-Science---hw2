@@ -11,6 +11,7 @@ This algorithm try to compute the probability that a person who survived has the
 
 # pre-processing
 we read the the train.csv and test.csv files into df and df_test respectively.
+
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
 
 ```{r}
@@ -35,6 +36,7 @@ Decision trees and rule-based models for pattern recognition.
 
 # pre-processing
 we read the the train.csv and test.csv files into df and df_test respectively.
+
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
 
 ```{r}
@@ -63,7 +65,9 @@ We run the algorithms on the data, and decide that people survived only if 2 of 
 
 # pre-processing
 we read the the train.csv and test.csv files into df and df_test respectively.
+
 we convert the fields Pclass and survived to factor and remove unnecessary fields.
+
 we create grids foreach algorithm.
 
 ```{r}
