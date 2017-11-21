@@ -18,7 +18,7 @@ Decision trees and rule-based models for pattern recognition.
 
 # Try n.3
 ## our score in this try:
-(Prediction3/try3.png)
+(/Prediction3/try3.png)
 
 ## Our algorithm
 We took 4 algorithms: RPART, C50, XGB, GBM.
