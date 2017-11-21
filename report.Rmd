@@ -9,6 +9,22 @@
 ## naive bayes algorithm
 This algorithm try to compute the probability that a person who survived has the records that are given, against the probability that a person who didnt survived as those records, by referring to each record as independent from the others and choosing by the higher probability.
 
+# pre-processing
+we read the the train.csv and test.csv files into df and df_test respectively.
+we convert the fields Pclass and survived to factor and remove unnecessary fields.
+
+```{r}
+df <-read.csv('Titanic/train.csv',na.strings = "")
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
+
+df$Pclass<- as.factor(df$Pclass)
+df$Survived<- as.factor(df$Survived)
+df<- df[,-c(1,4,9)]
+```
+
+
+
+
 [link to the file](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction1/prediction1.R)
 
 [link to the output](https://github.com/naordalal/DataScience-hw2/blob/master/Prediction1/try1.csv)
@@ -16,6 +32,19 @@ This algorithm try to compute the probability that a person who survived has the
 # Try n.2
 ## C50 algorithm
 Decision trees and rule-based models for pattern recognition.
+
+# pre-processing
+we read the the train.csv and test.csv files into df and df_test respectively.
+we convert the fields Pclass and survived to factor and remove unnecessary fields.
+
+```{r}
+df <-read.csv('Titanic/train.csv',na.strings = "")
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
+
+df$Pclass<- as.factor(df$Pclass)
+df$Survived<- as.factor(df$Survived)
+df<- df[,-c(1,4,9)]
+```
 
 ## plot
 ![](/Prediction2/C50Plot.png)
@@ -31,6 +60,26 @@ Decision trees and rule-based models for pattern recognition.
 ## Our algorithm
 We took 4 algorithms: RPART, C50, XGB, GBM.
 We run the algorithms on the data, and decide that people survived only if 2 of the algorithm return 1.
+
+# pre-processing
+we read the the train.csv and test.csv files into df and df_test respectively.
+we convert the fields Pclass and survived to factor and remove unnecessary fields.
+we create grids foreach algorithm.
+
+```{r}
+df <-read.csv('Titanic/train.csv',na.strings = "")
+df_test <-read.csv('Titanic/test.csv',na.strings = "")
+
+df$Pclass<- as.factor(df$Pclass)
+df$Survived<- as.factor(df$Survived)
+df<- df[,-c(1,4,9)]
+
+gbmGrid <- expand.grid(.n.trees=c(5),.interaction.depth=6,.shrinkage=c(0.1,0.3,0.5),.n.minobsinnode=5)
+xgbGrid <- expand.grid(.nrounds=20,.max_depth=6,.eta=c(0.1,0.3,0.5),.gamma=0.1,.colsample_bytree=0.5,.min_child_weight=0.01,.subsample=0.7)
+rpartGrid <- expand.grid(.cp = 0.001)
+c50Grid <- expand.grid(.winnow = c(TRUE,FALSE) , .trials = 5 , .model = 'tree')
+```
+
 
 ## C50 plot
 ![](/Prediction3/C50Plot.png)
